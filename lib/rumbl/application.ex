@@ -11,7 +11,7 @@ defmodule Rumbl.Application do
       # Start the Telemetry supervisor
       RumblWeb.Telemetry,
       # Start the Ecto repository
-      Rumbl.Repo,
+      # Rumbl.Repo,
       # Start the PubSub system
       {Phoenix.PubSub, name: Rumbl.PubSub},
       # Start Finch
