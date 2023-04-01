@@ -21,7 +21,7 @@ defmodule Rumbl.Auth do
   end
 
   def login_by_username_and_pass(conn, username, given_pass, opts) do
-    Rumbl.Repo.get_by(Rumbl.User, username: username)
+    user = Rumbl.Repo.get_by(Rumbl.User, username: username)
 
     cond do
       user && checkpw(given_pass, user.password_hash) ->
