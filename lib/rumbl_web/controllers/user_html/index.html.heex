@@ -1,7 +1,6 @@
 <h1>Listing Users</h1>
 <table class="table">
   <%= for user <- @users do %>
-
     <tr>
       <td>
         <UserComponent.show user={user} />
@@ -10,6 +9,7 @@
         <.link href={~p"/users/#{user.id}"}>View</.link>
       </td>
     </tr>
-
-    <% end %>
+  <% end %>
 </table>
+
+<.link href={~p"/users/new"}>Add user</.link>
