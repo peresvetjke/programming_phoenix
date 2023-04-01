@@ -1,4 +1,16 @@
 <header class="px-4 sm:px-6 lg:px-8">
+  <ol class="breadcrumb text-right">
+    <%= if @current_user do %>
+      <li><%= @current_user.username %></li>
+      <li><.link method="DELETE" href={~p"/sessions/#{@current_user.id}"}>Log out</.link></li>
+    <% else %>
+      <li><.link href={~p"/users/new"}>Register</.link></li>
+      <li><.link href={~p"/sessions/new"}>Log in</.link></li>
+    <% end %>
+  </ol>
+
+  <span class="logo"></span>
+
   <div class="flex items-center justify-between border-b border-zinc-100 py-3">
     <div class="flex items-center gap-4">
       <a href="/">
