@@ -1,5 +1,8 @@
 defmodule Rumbl.Auth do
+  use RumblWeb, :verified_routes
+
   import Plug.Conn
+  import Phoenix.Controller
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
 
   def init(opts) do
@@ -13,6 +16,17 @@ defmodule Rumbl.Auth do
     assign(conn, :current_user, user)
   end
 
+  def authenticate_user(conn, _opts) do
+    if conn.assigns.current_user do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You must be logged in to access that page")
+      |> redirect(to: ~p"/")
+      |> halt()
+    end
+  end
+
   def login(conn, user) do
     conn
     |> assign(:current_user, user)
@@ -20,7 +34,7 @@ defmodule Rumbl.Auth do
     |> configure_session(renew: true)
   end
 
-  def login_by_username_and_pass(conn, username, given_pass, opts) do
+  def login_by_username_and_pass(conn, username, given_pass, _opts) do
     user = Rumbl.Repo.get_by(Rumbl.User, username: username)
 
     cond do
