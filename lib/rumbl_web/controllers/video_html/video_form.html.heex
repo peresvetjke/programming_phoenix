@@ -3,8 +3,16 @@
     Oops, something went wrong! Please check the errors below.
   </.error>
   <.input field={f[:url]} type="text" label="Url" />
+  <.input
+    field={f[:category_id]}
+    type="select"
+    options={@categories}
+    label="Category"
+    prompt="Choose a category"
+  />
   <.input field={f[:title]} type="text" label="Title" />
   <.input field={f[:description]} type="text" label="Description" />
+
   <:actions>
     <.button>Save Video</.button>
   </:actions>
