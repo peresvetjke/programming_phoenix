@@ -2,9 +2,10 @@ defmodule RumblWeb.VideoController do
   use RumblWeb, :controller
   import Ecto, only: [assoc: 2, build_assoc: 2]
 
-  alias Rumbl.Repo
-  alias Rumbl.RumblVideo
+  alias Rumbl.{Category, Repo, RumblVideo}
   alias Rumbl.RumblVideo.Video
+
+  plug(:load_categories when action in [:new, :create, :edit, :update])
 
   def index(conn, _params, user) do
     videos = Repo.all(user_videos(user))
@@ -27,7 +28,7 @@ defmodule RumblWeb.VideoController do
       {:ok, video} ->
         conn
         |> put_flash(:info, "Video created successfully.")
-        |> redirect(to: ~p"/videos/#{video}")
+        |> redirect(to: ~p"/manage/videos/#{video}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, :new, changeset: changeset)
@@ -53,7 +54,7 @@ defmodule RumblWeb.VideoController do
       {:ok, video} ->
         conn
         |> put_flash(:info, "Video updated successfully.")
-        |> redirect(to: ~p"/videos/#{video}")
+        |> redirect(to: ~p"/manage/videos/#{video}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, :edit, video: video, changeset: changeset)
@@ -66,7 +67,7 @@ defmodule RumblWeb.VideoController do
 
     conn
     |> put_flash(:info, "Video deleted successfully.")
-    |> redirect(to: ~p"/videos")
+    |> redirect(to: ~p"/manage/videos")
   end
 
   def action(conn, _) do
@@ -75,5 +76,15 @@ defmodule RumblWeb.VideoController do
 
   def user_videos(user) do
     assoc(user, :videos)
+  end
+
+  defp load_categories(conn, _) do
+    query =
+      Category
+      |> Category.alphabetical()
+      |> Category.names_and_ids()
+
+    categories = Repo.all(query)
+    assign(conn, :categories, categories)
   end
 end
