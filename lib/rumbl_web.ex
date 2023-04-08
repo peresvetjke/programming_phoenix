@@ -21,7 +21,7 @@ defmodule RumblWeb do
 
   def router do
     quote do
-      use Phoenix.Router, helpers: false
+      use Phoenix.Router, helpers: true
 
       # Import common connection and controller functions to use in pipelines
       import Plug.Conn
@@ -46,6 +46,7 @@ defmodule RumblWeb do
       import Plug.Conn
       import RumblWeb.Gettext
       import Rumbl.Auth, only: [authenticate_user: 2]
+      import RumblWeb.Router.Helpers
 
       unquote(verified_routes())
     end

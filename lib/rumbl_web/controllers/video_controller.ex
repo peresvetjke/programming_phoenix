@@ -1,5 +1,6 @@
 defmodule RumblWeb.VideoController do
   use RumblWeb, :controller
+
   import Ecto, only: [assoc: 2, build_assoc: 2]
 
   alias Rumbl.{Category, Repo, RumblVideo}
@@ -25,10 +26,10 @@ defmodule RumblWeb.VideoController do
       |> Video.changeset(video_params)
 
     case Repo.insert(changeset) do
-      {:ok, video} ->
+      {:ok, _video} ->
         conn
         |> put_flash(:info, "Video created successfully.")
-        |> redirect(to: ~p"/manage/videos/#{video}")
+        |> redirect(to: video_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, :new, changeset: changeset)
@@ -62,7 +63,7 @@ defmodule RumblWeb.VideoController do
   end
 
   def delete(conn, %{"id" => id}, user) do
-    video = Repo.get!(RumblVideo.list_user_videos(user), id)
+    video = Repo.get!(user_videos(user), id)
     {:ok, _video} = RumblVideo.delete_video(video)
 
     conn
