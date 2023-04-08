@@ -2,8 +2,8 @@ defmodule Rumbl.RumblVideo.Video do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @required_fields ~w(url title description category_id)a
-  @optional_fields ~w()a
+  @required_fields ~w(url title description)a
+  @optional_fields ~w(category_id)a
 
   schema "videos" do
     field(:description, :string)

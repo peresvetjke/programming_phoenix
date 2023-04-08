@@ -1,6 +1,9 @@
 defmodule Rumbl.User do
   use Rumbl, :model
 
+  @required_fields ~w(username)a
+  @optional_fields ~w(name password)a
+
   schema "users" do
     field(:name, :string)
     field(:username, :string)
@@ -13,8 +16,9 @@ defmodule Rumbl.User do
 
   def changeset(user, %{} = params \\ %{}) do
     user
-    |> cast(params, ~w(name username)a)
-    |> validate_length(:username, min: 3, max: 30)
+    |> cast(params, @required_fields ++ @optional_fields)
+    |> validate_required(@required_fields)
+    |> validate_length(:username, min: 3, max: 20)
     |> unique_constraint(:username)
   end
 
