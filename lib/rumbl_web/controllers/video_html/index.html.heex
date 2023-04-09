@@ -12,6 +12,9 @@
   <:col :let={video} label="Title"><%= video.title %></:col>
   <:col :let={video} label="Description"><%= video.description %></:col>
   <:action :let={video}>
+    <.link navigate={~p"/watch/#{video.id}"}>Watch</.link>
+  </:action>
+  <:action :let={video}>
     <div class="sr-only">
       <.link navigate={~p"/manage/videos/#{video}"}>Show</.link>
     </div>

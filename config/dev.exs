@@ -26,7 +26,8 @@ config :rumbl, RumblWeb.Endpoint,
   secret_key_base: "kBkCY0fUUJlYRvCkOMxVHX3A3i03ylvCMuzzfgQgrFZPaxKVP7hQsW1DX1RaiLrk",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
-    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]},
+    node: ["node_modules/brunch/bin/brunch", "watch", "--stdin"]
   ]
 
 # ## SSL Support
