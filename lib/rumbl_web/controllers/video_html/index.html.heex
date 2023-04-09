@@ -16,7 +16,7 @@
   </:action>
   <:action :let={video}>
     <div class="sr-only">
-      <.link navigate={~p"/manage/videos/#{video}"}>Show</.link>
+      <.link navigate={video_path(@conn, :show, video)}>Show</.link>
     </div>
     <.link navigate={~p"/manage/videos/#{video}/edit"}>Edit</.link>
   </:action>
