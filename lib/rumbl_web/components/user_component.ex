@@ -9,6 +9,10 @@ defmodule UserComponent do
     """
   end
 
+  def render("user.json", %{user: user}) do
+    %{id: user.id, username: user.username}
+  end
+
   def form(assigns) do
     ~H"""
     <%= if @changeset.action do %>
