@@ -5,7 +5,7 @@ defmodule AnnotationComponent do
     %{
       id: annotation.id,
       body: annotation.body,
-      at: annotation.body,
+      at: annotation.at,
       user: UserComponent.render("user.json", %{user: annotation.user})
     }
   end
