@@ -12,6 +12,8 @@ defmodule Rumbl do
       use Ecto.Schema
       import Ecto
       import Ecto.Changeset
+
+      alias Rumbl.{User, RumblVideo.Video}
     end
   end
 
